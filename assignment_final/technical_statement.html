@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Statement - MyBrand 3D</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+    <main class="container py-5">
+        <article class="bg-white rounded shadow-sm p-4 p-md-5">
+            <div class="d-flex justify-content-between gap-3 flex-wrap mb-4">
+                <h1 class="text-danger">Technical Statement</h1>
+                <a class="btn btn-outline-secondary align-self-start" href="submission.html">Back to Submission</a>
+            </div>
+            <p><strong>Project:</strong> MyBrand Premium 3D Beverages</p>
+            <p><strong>Author:</strong> HONGQUAN CHEN</p>
+            <p><strong>Technical focus:</strong> WebGL rendering, JSON data loading, GLB cameras, animation, audio, and
+                responsive Bootstrap layout.</p>
+
+            <h2 class="h4 mt-4">1. MVC & Data Pipeline</h2>
+            <p>The app separates model metadata from the view by loading <code>assets/data/models.json</code> with the
+                Fetch API. The <code>Web3DApp</code> controller manages model selection, description updates, camera
+                changes, lighting controls, audio loading, and animation playback.</p>
+
+            <h2 class="h4 mt-4">2. Three.js Rendering</h2>
+            <p>The viewer uses Three.js, GLTFLoader, OrbitControls, lights, optional post-processing, and responsive
+                resize handling. GLB assets are scaled and framed automatically using mesh bounds so the viewer works
+                across screen sizes.</p>
+
+            <h2 class="h4 mt-4">3. Cameras, Audio & Animation</h2>
+            <ul>
+                <li>Each GLB has embedded camera nodes that match the model metadata.</li>
+                <li>Model-specific camera buttons move to front, top, side, and model views.</li>
+                <li>GLB clips are played through <code>THREE.AnimationMixer</code> and <code>clipAction</code>.</li>
+                <li>Each model has a local audio file loaded through <code>THREE.AudioLoader</code>.</li>
+            </ul>
+
+            <h2 class="h4 mt-4">4. Local Media & Submission Readiness</h2>
+            <p>Images, audio, GLB files, metadata, source archives, and the promotional video are all local project
+                assets. This avoids broken external project links during marking.</p>
+        </article>
+    </main>
+</body>
+
+</html>

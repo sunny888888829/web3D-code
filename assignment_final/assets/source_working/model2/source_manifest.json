@@ -1,0 +1,26 @@
+{
+  "id": "model2",
+  "name": "Classic Soda Can",
+  "exportedGlb": "model2.glb",
+  "originalProjectArchive": "../source_archives/model2_original_project_archive.zip",
+  "cameras": [
+    {
+      "name": "Perspective",
+      "position": [
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "name": "Close-up",
+      "position": [
+        0,
+        2,
+        3
+      ]
+    }
+  ],
+  "audio": "assets/audio/can_opening_edited.mp3",
+  "note": "Blender and 3ds Max were not installed in this workspace, so this archive preserves the submitted source deliverable as GLB plus metadata, camera definitions, audio link, and modeling notes rather than a fabricated native .blend/.max binary."
+}

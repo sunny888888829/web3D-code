@@ -1,0 +1,26 @@
+{
+  "id": "model3",
+  "name": "Recycled Crushed Can",
+  "exportedGlb": "model3.glb",
+  "originalProjectArchive": "../source_archives/model3_original_project_archive.zip",
+  "cameras": [
+    {
+      "name": "Bird's Eye",
+      "position": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "name": "Side Profile",
+      "position": [
+        -8,
+        2,
+        0
+      ]
+    }
+  ],
+  "audio": "assets/audio/can_crush.mp3",
+  "note": "Blender and 3ds Max were not installed in this workspace, so this archive preserves the submitted source deliverable as GLB plus metadata, camera definitions, audio link, and modeling notes rather than a fabricated native .blend/.max binary."
+}

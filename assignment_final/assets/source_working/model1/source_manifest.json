@@ -1,0 +1,26 @@
+{
+  "id": "model1",
+  "name": "Eco-Friendly Water Bottle",
+  "exportedGlb": "model1.glb",
+  "originalProjectArchive": "../source_archives/model1_original_project_archive.zip",
+  "cameras": [
+    {
+      "name": "Front View",
+      "position": [
+        0,
+        0,
+        10
+      ]
+    },
+    {
+      "name": "Top View",
+      "position": [
+        0,
+        10,
+        0
+      ]
+    }
+  ],
+  "audio": "assets/audio/water_pour.mp3",
+  "note": "Blender and 3ds Max were not installed in this workspace, so this archive preserves the submitted source deliverable as GLB plus metadata, camera definitions, audio link, and modeling notes rather than a fabricated native .blend/.max binary."
+}

@@ -1,0 +1,1 @@
+Placeholder note: no real Blender .blend binary was generated in this environment. Use the GLB in this archive as the interchange source asset.

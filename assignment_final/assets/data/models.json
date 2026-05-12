@@ -1,0 +1,44 @@
+{
+    "models": [
+        {
+            "id": "model1",
+            "name": "Eco-Friendly Water Bottle",
+            "path": "assets/models/model1.glb",
+            "description": "A sustainable 500ml water bottle featuring a BPA-free polymer body and a precision-threaded cap. The design focuses on ergonomic grip and high-clarity material simulation, demonstrating advanced transparency shaders in Three.js.",
+            "designChoices": "Chosen for its simplicity in form but complexity in material properties (IOR for plastic and liquid).",
+            "audio": "assets/audio/water_pour.mp3",
+            "sourceArchive": "assets/source_archives/model1_original_project_archive.zip",
+            "cameraDistanceScale": 1.85,
+            "cameras": [
+                {"name": "Front View", "position": [0, 0, 10]},
+                {"name": "Top View", "position": [0, 10, 0]}
+            ]
+        },
+        {
+            "id": "model2",
+            "name": "Classic Soda Can",
+            "path": "assets/models/model2.glb",
+            "description": "The standard 330ml aluminum soda can. This model showcases high-quality UV mapping and PBR (Physically Based Rendering) materials to simulate brushed metal and glossy branding. Includes a fully rigged pull-tab animation.",
+            "designChoices": "Selected to demonstrate the integration of branding textures and metallic reflectivity in a web environment.",
+            "audio": "assets/audio/can_opening_edited.mp3",
+            "sourceArchive": "assets/source_archives/model2_original_project_archive.zip",
+            "cameras": [
+                {"name": "Perspective", "position": [5, 5, 5]},
+                {"name": "Close-up", "position": [0, 2, 3]}
+            ]
+        },
+        {
+            "id": "model3",
+            "name": "Recycled Crushed Can",
+            "path": "assets/models/model3.glb",
+            "description": "An experimental model showing the result of physical deformation on a metal mesh. This represents the 'end of life' cycle of the product, utilizing complex vertex positions and optimized topology to maintain a low poly count for the web.",
+            "designChoices": "Created using Blender cloth simulation to provide a non-uniform mesh for testing advanced wireframe rendering.",
+            "audio": "assets/audio/can_crush.mp3",
+            "sourceArchive": "assets/source_archives/model3_original_project_archive.zip",
+            "cameras": [
+                {"name": "Bird's Eye", "position": [0, 15, 0]},
+                {"name": "Side Profile", "position": [-8, 2, 0]}
+            ]
+        }
+    ]
+}

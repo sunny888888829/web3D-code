@@ -1,0 +1,299 @@
+/* Global Variables (Tokens) */
+:root {
+    --primary-color: #e50020; /* Vibrant Red */
+    --secondary-color: #1a1a1a;
+    --text-color: #333;
+    --bg-color: #f8f9fa;
+    --card-bg: #fff;
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* App Header styling (Responsive block element) */
+.app-header {
+    background-color: var(--secondary-color);
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.logo .logo-text {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+.logo .logo-text span {
+    color: var(--primary-color);
+}
+
+.logo .strapline {
+    font-size: 0.85rem;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Navigation (Content Swapping Menu) */
+.nav-bar ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: var(--transition);
+}
+
+.nav-btn:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.nav-btn.active {
+    background-color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Content Container */
+.content-container {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Sections (For Content Swapping) */
+.page-section {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.page-section.active-section {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Home Section Layout */
+.hero {
+    text-align: center;
+    padding: 4rem 1rem;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+.hero-cards {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.card-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+/* 3D App Section Layout */
+.app-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.sidebar h3 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.model-selection, .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+}
+
+.model-btn, .control-btn {
+    padding: 0.8rem 1rem;
+    border: 1px solid #ddd;
+    background: var(--bg-color);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.model-btn:hover, .control-btn:hover {
+    background: #eef2f5;
+    border-color: #bcd;
+}
+
+.model-btn.active {
+    background-color: var(--secondary-color);
+    color: #fff;
+    border-color: var(--secondary-color);
+}
+
+.control-btn.action-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.control-btn.action-btn:hover {
+    background-color: #c4001c;
+}
+
+.canvas-container {
+    width: 100%;
+    height: 60vh;
+    min-height: 500px;
+    background-color: #2c3e50;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    position: relative;
+}
+
+#threeCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(44, 62, 80, 0.8);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-overlay.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 40px; height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* Text Content pages */
+.text-content {
+    background: var(--card-bg);
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.text-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.text-content ul {
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+}
+
+/* Footer */
+.app-footer {
+    background-color: var(--secondary-color);
+    color: #aaa;
+    text-align: center;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-footer a {
+    color: #aaa;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.app-footer a:hover {
+    color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .app-header { flex-direction: column; text-align: center; gap: 1rem; }
+    .nav-bar ul { flex-wrap: wrap; justify-content: center; }
+    .app-layout { grid-template-columns: 1fr; }
+}

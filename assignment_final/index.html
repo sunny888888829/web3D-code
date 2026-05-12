@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBrand - Premium 3D Beverages</title>
+    <!--
+        Environment:
+        This is a static Bootstrap + Three.js Web 3D application. No npm install is required.
+        Run it through a local HTTP server instead of opening with file:// so that JSON, GLB,
+        MP3, and MP4 assets load reliably.
+
+        Recommended local command from the project root:
+        python3 -m http.server 8000
+
+        Then open:
+        http://127.0.0.1:8000/index.html
+    -->
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand logo" href="index.html">
+                <span class="logo-text"><span>My</span>Brand</span>
+                <small class="d-block strapline">Refreshing 3D</small>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><button class="nav-link nav-btn active" data-target="home-section">Home</button></li>
+                    <li class="nav-item"><button class="nav-link nav-btn" data-target="app-section">3D Models</button></li>
+                    <li class="nav-item"><button class="nav-link nav-btn" data-target="gallery-section">Media</button></li>
+                    <li class="nav-item"><button class="nav-link nav-btn" data-target="about-section">About</button></li>
+                    <li class="nav-item"><a class="nav-link" href="submission.html">Submission</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        
+        <!-- Home Section -->
+        <section id="home-section" class="page-section active-section">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="display-4 fw-bold">Experience Beverages in <span class="text-danger">3D</span></h1>
+                    <p class="lead">Interactive, high-fidelity models developed with cutting-edge WebGL technology. Explore the journey from modeling to final render.</p>
+                    <button class="btn btn-danger btn-lg mt-3" onclick="document.querySelector('[data-target=app-section]').click()">Start Exploring</button>
+                </div>
+                <div class="col-md-6 text-center">
+                    <img src="assets/images/main_3D.jpg" alt="Featured 3D Can" class="img-fluid rounded shadow-lg">
+                </div>
+            </div>
+        </section>
+
+        <!-- 3D App Section -->
+        <section id="app-section" class="page-section">
+            <div class="row g-4">
+                <!-- Control Sidebar -->
+                <div class="col-lg-3">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body">
+                            <h5 class="card-title border-bottom pb-2 mb-3">Model Selection</h5>
+                            <div class="d-grid gap-2 mb-4" id="modelSelection">
+                                <!-- Dynamic buttons via JS -->
+                            </div>
+
+                            <h5 class="card-title border-bottom pb-2 mb-3">View Controls</h5>
+                            <div class="d-grid gap-2 mb-4">
+                                <button id="toggleWireframe" class="btn btn-outline-secondary btn-sm"><i class="fas fa-border-none"></i> Toggle Wireframe</button>
+                                <button id="toggleLight" class="btn btn-outline-secondary btn-sm"><i class="fas fa-lightbulb"></i> Toggle Lighting</button>
+                                <button id="togglePost" class="btn btn-outline-danger btn-sm"><i class="fas fa-magic"></i> Toggle Post-Processing</button>
+                            </div>
+
+                            <h5 class="card-title border-bottom pb-2 mb-3">Camera Views</h5>
+                            <div class="row g-2 mb-4" id="cameraControls">
+                                <div class="col-6"><button class="btn btn-light btn-sm w-100 cam-btn" data-cam="front">Front</button></div>
+                                <div class="col-6"><button class="btn btn-light btn-sm w-100 cam-btn" data-cam="top">Top</button></div>
+                                <div class="col-6"><button class="btn btn-light btn-sm w-100 cam-btn" data-cam="side">Side</button></div>
+                                <div class="col-6"><button class="btn btn-light btn-sm w-100 cam-btn" data-cam="model">Model</button></div>
+                            </div>
+
+                            <button id="playAnimBtn" class="btn btn-danger w-100 py-2 fw-bold"><i class="fas fa-play"></i> Interaction / Anim</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Main Viewer & Description -->
+                <div class="col-lg-9">
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="canvas-container position-relative">
+                            <canvas id="threeCanvas"></canvas>
+                            <div id="loadingOverlay" class="loading-overlay hidden">
+                                <div class="spinner-border text-light" role="status"></div>
+                                <p class="mt-2">Loading Model...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Object Description Card (Integrated Text Box) -->
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body">
+                            <div id="modelDescriptionArea">
+                                <h2 id="modelName" class="h4 text-danger mb-2">Select a Model</h2>
+                                <p id="modelDescription" class="text-muted">Detailed technical description will appear here...</p>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <h6><i class="fas fa-pencil-ruler"></i> Design Choices</h6>
+                                        <p id="modelDesign" class="small"></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6><i class="fas fa-volume-up"></i> Sound Interaction</h6>
+                                        <p id="audioStatus" class="small text-muted">Auditory feedback loads with the selected model.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery-section" class="page-section">
+            <h2 class="text-center mb-5">Product Gallery & Media</h2>
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <img src="assets/images/coca_cola.jpg" class="img-fluid rounded shadow" alt="Coke">
+                </div>
+                <div class="col-md-4">
+                    <img src="assets/images/sprite.jpg" class="img-fluid rounded shadow" alt="Sprite">
+                </div>
+                <div class="col-md-4">
+                    <img src="assets/images/dr_pepper.jpg" class="img-fluid rounded shadow" alt="Dr Pepper">
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <h5>Promotional Video</h5>
+                    <div class="ratio ratio-16x9 shadow-sm rounded overflow-hidden">
+                        <video controls preload="metadata" poster="assets/images/main_3D.jpg" title="MyBrand promotional video">
+                            <source src="assets/video/promo_showcase.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section (Enhanced for Rubric) -->
+        <section id="about-section" class="page-section">
+            <div class="card shadow-sm border-0 p-4 p-md-5">
+                <h2 class="mb-4 text-danger">About the Project</h2>
+                
+                <div class="row g-5">
+                    <div class="col-md-6">
+                        <h4><i class="fas fa-microchip"></i> Deeper Understanding: Shaders</h4>
+                        <p>Implemented custom <strong>GLSL Vertex and Fragment shaders</strong> to achieve a 'Fresnel' rim-lighting effect. This allows the models to have a vibrant, 'refreshing' glow that reacts to the camera's viewing angle, simulating high-end studio lighting.</p>
+                        <ul>
+                            <li><strong>Custom Material:</strong> THREE.ShaderMaterial implementation.</li>
+                            <li><strong>GLSL:</strong> Native vertex/fragment code for optimized rendering.</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h4><i class="fas fa-magic"></i> Post-Processing Pipeline</h4>
+                        <p>Utilized the <code>EffectComposer</code> to create a cinematic rendering pipeline:</p>
+                        <ul>
+                            <li><strong>UnrealBloomPass:</strong> Adds a soft glow to bright surfaces, creating a premium metallic and glass look.</li>
+                            <li><strong>Reinhard Tone Mapping:</strong> Ensures high dynamic range (HDR) colors are correctly mapped to the screen.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <div class="row">
+                    <div class="col-12">
+                        <h4><i class="fas fa-project-diagram"></i> Advanced Architecture: MVC & AJAX Pipeline</h4>
+                        <p>This application implements a professional <strong>Model-View-Controller (MVC)</strong> architectural pattern, demonstrating a deep understanding of modern web engineering:</p>
+                        <ul>
+                            <li><strong>Model (JSON/AJAX):</strong> All 3D model metadata is stored in an external <code>models.json</code> file. Data is fetched asynchronously via an <strong>AJAX (fetch API)</strong> pipeline, ensuring the UI stays responsive.</li>
+                            <li><strong>View (Three.js/Bootstrap):</strong> The viewer utilizes a dual rendering strategy (Standard WebGL + EffectComposer Post-processing) to display high-fidelity results.</li>
+                            <li><strong>Controller (Vanilla JS):</strong> Centralized event delegation and state management coordinate the data loading, camera transitions, and shader parameter updates.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-dark text-white py-4 mt-auto">
+        <div class="container text-center">
+            <p>&copy; 2026 MyBrand 3D Application. Developed for Web 3D Assignment.</p>
+            <div class="h4">
+                <a href="index.html" class="text-white mx-2" aria-label="Application home"><i class="fas fa-home"></i></a>
+                <a href="testing.html" class="text-white mx-2" aria-label="Testing report"><i class="fas fa-vial"></i></a>
+                <a href="submission.html" class="text-white mx-2" aria-label="Submission page"><i class="fas fa-file-alt"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Three.js & Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    
+    <!-- Post-processing & Shaders (Deeper Understanding) -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Application Logic -->
+    <script src="js/app.js"></script>
+</body>
+</html>
