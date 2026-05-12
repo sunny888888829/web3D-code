@@ -1,5 +1,9 @@
 # MyBrand Web 3D Application
 
+## Project Repository
+
+GitHub repository: https://github.com/sunny888888829/web3D-code.git
+
 ## Environment Requirements
 
 No package installation is required for normal use. The project is a static Bootstrap and Three.js website that runs in a modern browser.
