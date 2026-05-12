@@ -59,6 +59,7 @@ class Web3DApp {
         this.audio = null;
         this.audioLoader = null;
         this.audioReady = false;
+        this.modelLoadToken = 0;
     }
 
     init() {
@@ -154,6 +155,8 @@ class Web3DApp {
         const data = this.modelsData.find(m => m.id === id);
         if (!data) return;
 
+        const loadToken = ++this.modelLoadToken;
+        const modelUrl = new URL(data.path, document.baseURI).href;
         this.currentModelData = data;
         this.updateDescription(data);
         this.stopCurrentAnimation();
@@ -170,7 +173,23 @@ class Web3DApp {
             <p class="mt-2">Loading Model...</p>
         `;
 
-        new THREE.GLTFLoader().load(data.path, (gltf) => {
+        const showLoadError = (message) => {
+            if (loadToken !== this.modelLoadToken) return;
+            overlay.classList.remove('hidden');
+            overlay.innerHTML = `
+                <p class="fw-bold mb-2">Model failed to load.</p>
+                <p class="small mb-0">${message}</p>
+            `;
+        };
+
+        const loadTimeout = window.setTimeout(() => {
+            showLoadError(`Timed out while loading: ${data.path}`);
+            console.error('GLB load timed out:', data.path, modelUrl);
+        }, 20000);
+
+        new THREE.GLTFLoader().load(modelUrl, (gltf) => {
+            if (loadToken !== this.modelLoadToken) return;
+            window.clearTimeout(loadTimeout);
             overlay.classList.add('hidden');
             this.currentModel = gltf.scene;
 
@@ -201,12 +220,9 @@ class Web3DApp {
             this.collectEmbeddedCameras(gltf.cameras || []);
             this.applyCameraView('model');
         }, undefined, (error) => {
-            overlay.classList.remove('hidden');
-            overlay.innerHTML = `
-                <p class="fw-bold mb-2">Model failed to load.</p>
-                <p class="small mb-0">${data.path}</p>
-            `;
-            console.error('GLB load failed:', data.path, error);
+            window.clearTimeout(loadTimeout);
+            showLoadError(data.path);
+            console.error('GLB load failed:', data.path, modelUrl, error);
         });
     }
 
